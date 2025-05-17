@@ -351,6 +351,7 @@ void playGame(CardBST& aCards, CardBST& bCards){
             if (matchFound){
             aCards.remove(temp);
             bCards.remove(temp);
+            matchFound = false;
             }
             for(auto bobIt = bCards.rbegin(); bobIt != bCards.rend(); ++bobIt){
                 if(aCards.contains(*bobIt)){
