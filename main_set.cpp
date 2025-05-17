@@ -59,6 +59,7 @@ bool Gameplay::bobsTurn(){
 
 
 void Gameplay::printHands(){ // print all the cards left in both hands
+cout << endl;
 cout << "Alice's cards:" << endl;
 for(auto it = aCards.begin(); it != aCards.end(); ++it){
   cout << *it << endl;
