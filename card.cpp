@@ -7,7 +7,8 @@
 #include <string>
 #include <iostream>
 using namespace std;
-
+// two maps to convert the card indicators and convert them to values in order to have the logic and ordering of the cards
+//to be easier for me to understand
 map<string, int> cardValConverter = {
     {"a", 1}, // ace
     {"2", 2},
@@ -30,11 +31,14 @@ map<char,int> cardSuitConverter{
     {'h',4} // hearts
 };
 
+// Card constructor
 Card::Card(char suit, string value){
     this -> suit = suit;
     this -> value = value;
 }
 
+//Card operator overloading
+// == op
 bool Card::operator==(const Card& other) const{
     if(cardSuitConverter[this -> suit] == cardSuitConverter[other.suit]){
         if(cardValConverter[this -> value] ==  cardValConverter[other.value]){
@@ -43,6 +47,7 @@ bool Card::operator==(const Card& other) const{
     }
     return false;
 }
+// >= op
 bool Card::operator>=(const Card& other)const{
     if(cardSuitConverter[this -> suit] < cardSuitConverter[other.suit]){
         return false;
@@ -52,6 +57,7 @@ bool Card::operator>=(const Card& other)const{
      }
      return true;
 }
+// <= op
 bool Card::operator<=(const Card& other)const{
     if(cardSuitConverter[this -> suit] > cardSuitConverter[other.suit]){
        return false;
@@ -62,6 +68,7 @@ bool Card::operator<=(const Card& other)const{
     return true;
 }
 
+// > op
 bool Card::operator>(const Card& other)const{
     if(cardSuitConverter[this -> suit] > cardSuitConverter[other.suit]){
         return true;
@@ -71,6 +78,7 @@ bool Card::operator>(const Card& other)const{
     }
     return false;
 }
+// < op
 bool Card::operator<(const Card& other)const{
     if(cardSuitConverter[this -> suit] < cardSuitConverter[other.suit]){
         return true;
@@ -80,6 +88,7 @@ bool Card::operator<(const Card& other)const{
     }
     return false;
 }
+// << operator overloading to make printing the Card contents alot easier
 ostream& operator<<(ostream& out, const Card& card){
     out << card.suit << " " << card.value;
     return out;

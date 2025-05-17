@@ -20,7 +20,7 @@ class Gameplay{
   
 
 };
-
+// Gameplay Constructor 
 Gameplay::Gameplay(set<Card> alicesCards, set<Card> bobsCards){
   aCards = alicesCards;
   bCards = bobsCards;
@@ -36,9 +36,9 @@ void Gameplay::startGame(){
 }
 bool Gameplay::alicesTurn(){
   for(auto it = aCards.begin(); it != aCards.end(); ++it){
-      if(bCards.count(*it) == 1){
-        cout << "Alice picked matching card " << *it << endl;
-        aCards.erase(*it);
+      if(bCards.count(*it) == 1){ // if card in Alices hand is found in Bobs hand
+        cout << "Alice picked matching card " << *it << endl; // print theres a match
+        aCards.erase(*it); //remove match from both hands
         bCards.erase(*it);
         return true;
       }
@@ -47,9 +47,9 @@ bool Gameplay::alicesTurn(){
 }
 bool Gameplay::bobsTurn(){
   for(auto it = bCards.end(); it != bCards.begin(); --it){
-    if(aCards.count(*it) == 1){
-      cout << "Bob picked matching card " << *it << endl;
-      aCards.erase(*it);
+    if(aCards.count(*it) == 1){// if card in Bobs hand is found in Alices hand
+      cout << "Bob picked matching card " << *it << endl; // print theres a match
+      aCards.erase(*it); //remove match from both hands
       bCards.erase(*it);
       return true;
     }
@@ -58,7 +58,7 @@ bool Gameplay::bobsTurn(){
 }
 
 
-void Gameplay::printHands(){
+void Gameplay::printHands(){ // print all the cards left in both hands
 cout << "Alice's cards:" << endl;
 for(auto it = aCards.begin(); it != aCards.end(); ++it){
   cout << *it << endl;
@@ -103,7 +103,7 @@ int main(int argv, char** argc){
   }
   cardFile2.close();
   
-  Gameplay cardGame(alicesCards,bobsCards);
-  cardGame.startGame();
+  Gameplay cardGame(alicesCards,bobsCards); // create the gameplay object
+  cardGame.startGame(); // start and complete the game
   return 0;
 }
