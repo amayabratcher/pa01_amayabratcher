@@ -133,7 +133,7 @@ CardBST::Node* CardBST::getPredecessorNode(Card c) const{
     }
     else{
         Node *parent = n -> parent;
-        while(parent -> right != n && parent != nullptr){
+        while(parent != nullptr && parent -> right != n){
             n = parent;
             parent = parent -> parent;
         }
@@ -353,30 +353,33 @@ bool alicesTurn(CardBST& aCards, CardBST& bCards){
     return found;
 }
 
-bool bobsTurn(CardBST& bCards, CardBST& aCards){
-    bool found = false;
-    Card temp;
-    for(auto it = bCards.rbegin(); it != bCards.rend(); ++it){
-        if(aCards.contains(*it)){ // if card in Bobs hand is found in Alices hand
-            cout << "Bob picked matching card " << *it << endl; // print theres a match
-            temp = *it;
-            found = true;
-            break;
-        }  
-}
-    if(found){
-        aCards.remove(temp); //remove match from both hands
-        bCards.remove(temp);
-    }
-    return found;
-}
 
 void playGame(CardBST& aCards, CardBST& bCards){
-    bool runningGame = true;
-    while(runningGame){
-      bool alicematched = alicesTurn(aCards, bCards);
-      bool bobmatched = bobsTurn(bCards,aCards);
-      runningGame = alicematched || bobmatched;
+    bool aliceMatched = true;
+    bool bobMatched = true;
+    while(aliceMatched|| bobMatched){
+        aliceMatched = false;
+        for(auto it = aCards.begin(); it!= aCards.end(); ++it){
+            if(bCards.contains(*it)){
+                cout << "Alice picked matching card " << *it << endl;
+                Card temp = *it;
+                aCards.remove(temp);
+                bCards.remove(temp);
+                aliceMatched = true;
+                break;
+            }
+        }
+        bobMatched = false;
+        for(auto it = bCards.rbegin(); it!= bCards.rend(); --it){
+            if(aCards.contains(*it)){
+            cout << "Bob picked matching card " << *it << endl;
+                Card temp = *it;
+                aCards.remove(temp);
+                bCards.remove(temp);
+                bobMatched = true;
+                break;
+            }
+        }
     }
     cout << endl;
     cout << "Alice's cards:" << endl;
