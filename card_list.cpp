@@ -335,38 +335,49 @@ void CardBST::printDeck() const{
     }
 }
 
-void playGame(CardBST& aCards, CardBST& bCards){
-    bool matchFound = true;
-    Card temp; //dummy card
-        while(matchFound){
-        matchFound = false;
-            for(auto aliceIt = aCards.begin(); aliceIt != aCards.end(); ++aliceIt){
-                    if(bCards.contains(*aliceIt)){
-                        cout << "Alice picked matching card " << *aliceIt << endl;
-                        temp = *aliceIt;
-                        matchFound = true;
-                        break;
-                    }  
-            }
-            if (matchFound){
-            aCards.remove(temp);
-            bCards.remove(temp);
-            matchFound = false;
-            }
-            for(auto bobIt = bCards.rbegin(); bobIt != bCards.rend(); ++bobIt){
-                if(aCards.contains(*bobIt)){
-                    cout << "Bob picked matching card " << *bobIt << endl;
-                    temp = *bobIt;
-                    matchFound = true;
-                    break;
-                    }
-            }
-            if(matchFound){
-            aCards.remove(temp);
-            bCards.remove(temp);
-            }
+bool alicesTurn(CardBST& aCards, CardBST& bCards){
+    bool found = false;
+    Card temp;
+    for(auto it = aCards.begin(); it != aCards.end(); ++it){
+        if(bCards.contains(*it)){ // if card in Alices hand is found in Bobs hand
+            cout << "Alice picked matching card " << *it << endl; // print theres a match
+            temp = *it;
+            found = true;
+            break;
+        }  
+}
+    if(found){
+        aCards.remove(temp); //remove match from both hands
+        bCards.remove(temp);
     }
+    return found;
+}
 
+bool bobsTurn(CardBST& bCards, CardBST& aCards){
+    bool found = false;
+    Card temp;
+    for(auto it = bCards.rbegin(); it != bCards.rend(); ++it){
+        if(aCards.contains(*it)){ // if card in Bobs hand is found in Alices hand
+            cout << "Bob picked matching card " << *it << endl; // print theres a match
+            temp = *it;
+            found = true;
+            break;
+        }  
+}
+    if(found){
+        aCards.remove(temp); //remove match from both hands
+        bCards.remove(temp);
+    }
+    return found;
+}
+
+void playGame(CardBST& aCards, CardBST& bCards){
+    bool runningGame = true;
+    while(runningGame){
+      bool alicematched = alicesTurn(aCards, bCards);
+      bool bobmatched = bobsTurn(bCards,aCards);
+      runningGame = alicematched || bobmatched;
+    }
     cout << endl;
     cout << "Alice's cards:" << endl;
     aCards.printDeck();

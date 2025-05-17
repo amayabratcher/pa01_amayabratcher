@@ -22,7 +22,6 @@ Node* root;
 bool insert(const Card& c, Node *n); // 
 Node* getSuccessorNode(Card c) const; // overloaded function so that the user doesnt have to enter much information (abstraction)
 Node* getPredecessorNode(Card c) const; // abstracting the function
-bool remove(const Card& c);
 void clear(Node* n); // destructor helper function
 Node* getNodeFor(Card c, Node* n) const; //helper function for predecessor/successor/remove
 
@@ -32,6 +31,7 @@ CardBST();// Constructor
 bool insert(const Card& c); 
 bool contains(const Card& c) const;
 void printDeck() const;
+bool remove(const Card& c);
 
 
 
@@ -59,7 +59,7 @@ Iterator end() const;
 Iterator rbegin() const;
 Iterator rend() const;
 friend class Iterator;
-friend void playGame(CardBST& aCards, CardBST& bCards);
+
 };
 
 void playGame(CardBST& aCards, CardBST& bCards);
