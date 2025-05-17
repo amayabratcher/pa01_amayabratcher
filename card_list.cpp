@@ -337,34 +337,39 @@ void CardBST::printDeck() const{
 
 void playGame(CardBST& aCards, CardBST& bCards){
     bool matchFound = true;
-    while(matchFound){
+    Card temp; //dummy card
+        while(matchFound){
         matchFound = false;
-    for(auto aliceIt = aCards.begin(); aliceIt != aCards.end(); ++aliceIt){
-            if(bCards.contains(*aliceIt)){
-            cout << "Alice picked matching card " << *aliceIt << endl;
-            Card temp = *aliceIt;
+            for(auto aliceIt = aCards.begin(); aliceIt != aCards.end(); ++aliceIt){
+                    if(bCards.contains(*aliceIt)){
+                        cout << "Alice picked matching card " << *aliceIt << endl;
+                        temp = *aliceIt;
+                        matchFound = true;
+                        break;
+                    }  
+            }
+            if (matchFound){
             aCards.remove(temp);
             bCards.remove(temp);
-            matchFound = true;
-            break;
             }
-        
-    }
-    for(auto bobIt = bCards.rbegin(); bobIt != bCards.rend(); ++bobIt){
-            if(aCards.contains(*bobIt)){
-                cout << "Bob picked matching card " << *bobIt << endl;
-                Card temp = *bobIt;
-                bCards.remove(temp);
-                aCards.remove(temp);
-                matchFound = true;
-                break;
-                
+            for(auto bobIt = bCards.rbegin(); bobIt != bCards.rend(); ++bobIt){
+                if(aCards.contains(*bobIt)){
+                    cout << "Bob picked matching card " << *bobIt << endl;
+                    temp = *bobIt;
+                    matchFound = true;
+                    break;
+                    }
+            }
+            if(matchFound){
+            aCards.remove(temp);
+            bCards.remove(temp);
             }
     }
-}
- 
+
+    cout << endl;
     cout << "Alice's cards:" << endl;
     aCards.printDeck();
+    cout << endl;
     cout << "Bob's cards:" << endl;
     bCards.printDeck();
      

@@ -11,6 +11,7 @@ class Card { // declaring the card class
     string value;
 
     public:
+    Card();
     Card(char suit, string value);
     bool operator==(const Card& other) const;
     bool operator>=(const Card& other) const;

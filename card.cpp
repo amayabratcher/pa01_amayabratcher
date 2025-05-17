@@ -22,16 +22,23 @@ map<string, int> cardValConverter = {
     {"10", 10},
     {"j", 11}, //jack
     {"q", 12}, //queen
-    {"k", 13} //king
+    {"k", 13}, //king
+    {"0", 99999} //dummy default card
 };
 map<char,int> cardSuitConverter{
     {'c',1}, //clubs
     {'d',2}, //diamonds
     {'s',3}, //spades
-    {'h',4} // hearts
+    {'h',4}, // hearts
+    {'x',999999} // dummy default card
+
 };
 
 // Card constructor
+Card::Card(){
+    this -> suit = 'x';
+    this -> value = "0";
+}
 Card::Card(char suit, string value){
     this -> suit = suit;
     this -> value = value;
